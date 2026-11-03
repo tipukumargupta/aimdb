@@ -8,6 +8,7 @@ import { Overline } from "@/components/ui/Overline";
 import { Section } from "@/components/ui/Section";
 import { contactDetails, contactPage } from "@/content/contact";
 import { pageMetadata } from "@/lib/metadata";
+import { whatsappLink } from "@/lib/whatsapp";
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact",
@@ -20,7 +21,7 @@ export default function ContactPage() {
   const direct = [
     { label: details.email, value: contactDetails.email, href: contactDetails.email && `mailto:${contactDetails.email}` },
     { label: details.phone, value: contactDetails.phone, href: contactDetails.phone && `tel:${contactDetails.phone.replace(/\s/g, "")}` },
-    { label: details.whatsapp, value: contactDetails.whatsapp, href: contactDetails.whatsapp && `https://wa.me/${contactDetails.whatsapp.replace(/\D/g, "")}` },
+    { label: details.whatsapp, value: contactDetails.whatsapp, href: contactDetails.whatsapp && whatsappLink(contactDetails.whatsapp) },
   ].filter((item) => item.value);
 
   return (

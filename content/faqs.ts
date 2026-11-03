@@ -56,7 +56,7 @@ export const faqs: Faq[] = [
     group: "support",
     question: "When is my meeting confirmed?",
     answer:
-      "After you send a booking request, our team checks availability and confirms the time by email. A request isn't confirmed until you receive that email.",
+      "After you send a booking request, our team checks availability and replies to confirm the time. A request isn't confirmed until we do.",
   },
   {
     id: "pricing-structure",

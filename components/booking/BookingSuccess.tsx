@@ -4,11 +4,15 @@ import { Overline } from "@/components/ui/Overline";
 import { bookingPage, getBookingType } from "@/content/booking";
 import type { BookingValues } from "@/lib/booking/schema";
 import { describeTime } from "@/lib/booking/summary";
+import { bookingWhatsAppLink } from "@/lib/booking/whatsapp";
 
 // Stable, so the heading is focused once when the screen appears, not on every render.
 const focusOnMount = (node: HTMLElement | null) => node?.focus();
 
-/** Shown after the request is sent (flow step 7). Never says "confirmed": the team confirms by email. */
+/**
+ * Shown after the request is sent (flow step 7), or after WhatsApp opens with it for the visitor
+ * to send. Never says "confirmed": the team replies to confirm a time.
+ */
 export function BookingSuccess({ values, interest }: { values: BookingValues; interest: string }) {
   const copy = bookingPage.success;
   const type = getBookingType(values.type);
@@ -54,8 +58,17 @@ export function BookingSuccess({ values, interest }: { values: BookingValues; in
       </ol>
 
       <div className="mt-10 flex flex-wrap gap-4">
+        {copy.reopen && (
+          <ButtonLink href={bookingWhatsAppLink(values, interest)} target="_blank" rel="noopener noreferrer">
+            {copy.reopen}
+          </ButtonLink>
+        )}
         {copy.actions.map((action, index) => (
-          <ButtonLink key={action.href} href={action.href} variant={index === 0 ? "primary" : "outline"}>
+          <ButtonLink
+            key={action.href}
+            href={action.href}
+            variant={index === 0 && !copy.reopen ? "primary" : "outline"}
+          >
             {action.label}
           </ButtonLink>
         ))}

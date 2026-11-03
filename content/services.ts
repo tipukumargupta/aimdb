@@ -391,6 +391,6 @@ export const serviceDetail = {
   others: { eyebrow: "More services", title: "Explore other services." },
   cta: {
     eyebrow: "Next step",
-    intro: "Book a consultation and we'll scope it together. We'll confirm a time with you by email.",
+    intro: "Book a consultation and we'll scope it together. We'll confirm a time with you.",
   },
 };

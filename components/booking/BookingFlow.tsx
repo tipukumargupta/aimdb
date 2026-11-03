@@ -7,7 +7,7 @@ import { submitBookingRequest } from "@/app/book/actions";
 import { Honeypot } from "@/components/forms/FormParts";
 import { Button } from "@/components/ui/Button";
 import { Overline } from "@/components/ui/Overline";
-import { bookingErrors, bookingPage } from "@/content/booking";
+import { bookingErrors, bookingPage, bookingViaWhatsApp } from "@/content/booking";
 import {
   bookingFieldNames,
   emptyBooking,
@@ -21,6 +21,7 @@ import {
   type InterestGroup,
 } from "@/lib/booking/schema";
 import { bookingSummary } from "@/lib/booking/summary";
+import { bookingWhatsAppLink } from "@/lib/booking/whatsapp";
 import { BookingSuccess } from "./BookingSuccess";
 import { StepIndicator } from "./StepIndicator";
 import { DetailsStep } from "./steps/DetailsStep";
@@ -95,6 +96,16 @@ export function BookingFlow({ interestGroups, initialType = "", initialInterest 
     );
     if (Object.keys(found).length > 0) return showErrors(found);
     if (step < REVIEW) return goTo(step + 1);
+
+    if (bookingViaWhatsApp) {
+      // Opened inside the submit gesture so pop-up blockers allow it. The visitor sends the
+      // message themselves; the success screen links to it again in case it didn't open.
+      const request = normalizeBooking(current);
+      const link = bookingWhatsAppLink(request, interestLabel(request.interest, interestGroups));
+      window.open(link, "_blank", "noopener,noreferrer");
+      setSent(request);
+      return;
+    }
 
     const formData = new FormData(event.currentTarget);
     const request = current;

@@ -96,6 +96,6 @@ export const faqSection = {
 export const bookingSection = {
   eyebrow: "Book a consultation",
   title: "Let's talk about what you're building.",
-  intro: "Choose the kind of conversation you need. We'll confirm a time with you by email.",
+  intro: "Choose the kind of conversation you need. We'll confirm a time with you.",
   cta: { label: "Book a Consultation", href: "/book" },
 };

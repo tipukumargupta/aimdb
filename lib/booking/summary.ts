@@ -59,3 +59,23 @@ export function bookingSummary(values: BookingValues, interest: string): Summary
 
   return [meeting, when, details];
 }
+
+/**
+ * The summary as plain-text blocks, one per step, for the team's email and the WhatsApp
+ * message. `formatLabel` lets WhatsApp bold the labels.
+ */
+export function bookingSummaryText(
+  values: BookingValues,
+  interest: string,
+  formatLabel = (label: string) => label,
+): string[] {
+  return bookingSummary(values, interest).map((rows) =>
+    rows
+      .map(({ label, value }) => {
+        // "What would you like to discuss?" reads badly with a colon after it.
+        const key = formatLabel(label.endsWith("?") ? label : `${label}:`);
+        return value.includes("\n") ? `${key}\n${value}` : `${key} ${value}`;
+      })
+      .join("\n"),
+  );
+}

@@ -1,6 +1,9 @@
-// Business email and phone/WhatsApp are pending from the client (requirements §18). Until then
-// the page offers the contact form and booking; set `contactDetails` to show them.
-export const contactDetails: { email?: string; phone?: string; whatsapp?: string } = {};
+// Business email and phone are pending from the client (requirements §18); set them here to
+// show them on the contact page. `whatsapp` also sends meeting requests from /book to that
+// WhatsApp number (content/booking.ts) until the email service is set up.
+export const contactDetails: { email?: string; phone?: string; whatsapp?: string } = {
+  whatsapp: "+880 1575-413638",
+};
 
 export const contactTopics = [
   { value: "services", label: "Services or a project" },
@@ -26,7 +29,7 @@ export const contactPage = {
   },
   book: {
     title: "Book a consultation",
-    intro: "Choose a meeting type and a time that suits you. We'll confirm by email.",
+    intro: "Choose a meeting type and a time that suits you, and we'll confirm it with you.",
     cta: { label: "Book a Consultation", href: "/book" },
   },
   support: {
