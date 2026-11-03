@@ -49,11 +49,13 @@ export function Hero() {
           </ButtonLink>
         </div>
 
-        <HeroVisual className="lg:col-start-2 lg:row-start-1 lg:self-center" />
+        {/* From xl the cards sit under the text and the founder stands the full height of both
+            rows, as in the reference; below xl three cards need the full width. */}
+        <HeroVisual className="lg:col-start-2 lg:row-start-1 lg:min-h-[30rem] xl:row-span-2" />
 
         <QuickCards
           services={quickServices}
-          className="lg:col-span-2 lg:row-start-2 motion-safe:animate-fade-up motion-safe:[animation-delay:400ms]"
+          className="lg:col-span-2 lg:row-start-2 xl:col-span-1 xl:col-start-1 motion-safe:animate-fade-up motion-safe:[animation-delay:400ms]"
         />
       </Container>
     </section>
