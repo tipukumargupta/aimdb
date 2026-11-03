@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap");
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 800px; height: 500px; overflow: hidden; }
+body { font-family: "Inter", system-ui, sans-serif; font-size: 11px; line-height: 1.35; -webkit-font-smoothing: antialiased; }
+.bn { font-family: "Noto Sans Bengali", "Inter", sans-serif; }
+.mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+svg.i { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.row { display: flex; align-items: center; }
+.between { justify-content: space-between; }
+.gap4 { gap: 4px; } .gap6 { gap: 6px; } .gap8 { gap: 8px; } .gap10 { gap: 10px; }
+.pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 999px; font-size: 9.5px; font-weight: 600; white-space: nowrap; }
+.dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }

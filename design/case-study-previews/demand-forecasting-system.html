@@ -1,0 +1,125 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+body { background: #0b1120; color: #e2e8f0; display: flex; flex-direction: column; }
+header { height: 44px; border-bottom: 1px solid #1e293b; display: flex; align-items: center; padding: 0 16px; gap: 14px; background: #0f172a; }
+.brand { display: flex; align-items: center; gap: 7px; font-weight: 700; font-size: 11.5px; color: #fff; }
+.logo { width: 20px; height: 20px; border-radius: 5px; background: linear-gradient(135deg,#14b8a6,#8b5cf6); }
+.crumbs { color: #64748b; font-size: 10px; } .crumbs b { color: #e2e8f0; font-weight: 600; }
+.tab { font-size: 10px; color: #94a3b8; padding: 14px 2px; border-bottom: 2px solid transparent; }
+.tab.on { color: #fff; border-color: #2dd4bf; }
+.btn { border: 1px solid #334155; border-radius: 6px; padding: 5px 9px; font-size: 10px; font-weight: 600; color: #e2e8f0; display: inline-flex; gap: 5px; align-items: center; }
+.btn.primary { background: #14b8a6; border-color: #14b8a6; color: #042f2e; }
+.sel { border: 1px solid #334155; background: #111827; border-radius: 6px; padding: 5px 9px; font-size: 10px; color: #cbd5e1; }
+.sel b { color: #fff; }
+.wrap { flex: 1; display: grid; grid-template-columns: 1fr 210px; gap: 10px; padding: 12px 16px; min-height: 0; }
+.card { background: #111827; border: 1px solid #1f2937; border-radius: 9px; }
+.chart { padding: 11px 13px; display: flex; flex-direction: column; }
+h2 { font-size: 11.5px; font-weight: 650; color: #f8fafc; }
+.muted { color: #64748b; font-size: 9.5px; }
+.legend { display: flex; gap: 11px; font-size: 9px; color: #94a3b8; margin-top: 7px; }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.ln { width: 14px; height: 0; border-top: 2px solid; display: inline-block; }
+svg text { font-family: Inter, sans-serif; font-size: 8.5px; fill: #64748b; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
+.stat { padding: 8px 10px; }
+.stat .l { color: #94a3b8; font-size: 9px; } .stat .v { font-size: 15px; font-weight: 700; margin-top: 2px; color: #fff; } .stat .s { color: #64748b; font-size: 8.5px; margin-top: 1px; }
+.side { display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+.side .card { padding: 10px 11px; }
+table { width: 100%; border-collapse: collapse; margin-top: 6px; }
+th { text-align: left; font-size: 8.5px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; padding-bottom: 4px; }
+td { font-size: 9.5px; padding: 4.5px 0; border-top: 1px solid #1f2937; }
+td.n { font-weight: 600; color: #fff; text-align: right; } td.r { color: #94a3b8; text-align: right; }
+.drv { display: grid; grid-template-columns: 1fr 52px; gap: 6px 8px; margin-top: 7px; font-size: 9.5px; color: #cbd5e1; align-items: center; }
+.drv i { height: 5px; border-radius: 9px; background: #1f2937; display: block; position: relative; overflow: hidden; }
+.drv i b { position: absolute; inset: 0 auto 0 0; border-radius: 9px; }
+.sug { background: linear-gradient(135deg, rgb(20 184 166 / .16), rgb(139 92 246 / .14)); border-color: #134e4a; }
+.sug .v { font-size: 17px; font-weight: 700; color: #fff; margin-top: 3px; }
+</style></head>
+<body>
+<header>
+  <div class="brand"><span class="logo"></span>Demand Forecast</div>
+  <span class="tab">Overview</span><span class="tab on">Products</span><span class="tab">Reports</span><span class="tab">Data sources</span>
+  <div class="row gap6" style="margin-left:auto">
+    <span class="sel">Granularity <b>Weekly</b></span><span class="sel">Horizon <b>8 weeks</b></span>
+    <span class="btn primary"><svg class="i" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Export report</span>
+  </div>
+</header>
+<div class="wrap">
+  <div style="display:flex;flex-direction:column;min-height:0">
+    <div class="card chart">
+      <div class="row between">
+        <div><div class="crumbs">Products › Knitwear › <b>Cotton crew tee · Navy</b></div><h2 style="margin-top:3px">Weekly demand, all sizes</h2></div>
+        <span class="sel">SKU <b>CT-NV-ALL</b> ▾</span>
+      </div>
+      <div class="legend">
+        <span><i class="ln" style="border-color:#2dd4bf"></i>Actual sales</span>
+        <span><i class="ln" style="border-color:#a78bfa;border-top-style:dashed"></i>Forecast</span>
+        <span><i style="width:14px;height:8px;background:rgb(167 139 250 / .22);border-radius:2px;display:inline-block"></i>Error range</span>
+        <span><i class="ln" style="border-color:#64748b;border-top-style:dotted"></i>Naive baseline</span>
+      </div>
+      <svg id="c" width="526" height="290" style="margin-top:4px"></svg>
+    </div>
+    <div class="stats">
+      <div class="card stat"><div class="l">Avg weekly sales · last 12 wks</div><div class="v" id="avg"></div><div class="s">pieces per week</div></div>
+      <div class="card stat"><div class="l">Forecast · next 8 weeks</div><div class="v" id="sum"></div><div class="s" id="sumr"></div></div>
+      <div class="card stat"><div class="l">Stock on hand</div><div class="v">3,950</div><div class="s">covers about 3 weeks</div></div>
+    </div>
+  </div>
+  <div class="side">
+    <div class="card">
+      <h2>Next 4 weeks</h2>
+      <table>
+        <tr><th>Week</th><th style="text-align:right">Forecast</th><th style="text-align:right">Range</th></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h2>What drives this forecast</h2>
+      <div class="drv">
+        <span>Winter season starting</span><i><b style="width:82%;background:#a78bfa"></b></i>
+        <span>4-week upward trend</span><i><b style="width:58%;background:#2dd4bf"></b></i>
+        <span>Promotion planned W49</span><i><b style="width:36%;background:#f59e0b"></b></i>
+        <span>Same weeks last year</span><i><b style="width:28%;background:#64748b"></b></i>
+      </div>
+    </div>
+    <div class="card sug">
+      <div class="muted" style="color:#99f6e4">Suggested production · W46–W49</div>
+      <div class="v" id="sug"></div>
+      <div class="muted" style="margin-top:2px">after 3,950 in stock · review with planning</div>
+    </div>
+  </div>
+</div>
+<script>
+const svg = document.getElementById("c"), W = 526, H = 290, L = 34, R = 8, T = 8, B = 20;
+const n = 34, split = 26, ymin = 600, ymax = 1700;
+const x = (i) => L + (i * (W - L - R)) / (n - 1), y = (v) => T + (1 - (v - ymin) / (ymax - ymin)) * (H - T - B);
+const noise = [12,-30,44,-8,26,-52,18,40,-22,6,-36,30,-14,48,-6,-40,22,10,-28,36,-18,4,30,-12,20,8];
+const actual = Array.from({ length: split }, (_, i) => 860 + 13 * i + 70 * Math.sin(i / 2.6) + noise[i]);
+const fc = Array.from({ length: n - split + 1 }, (_, k) => { const i = split - 1 + k; return 860 + 13 * i + 70 * Math.sin(i / 2.6) + (k ? 16 * k : noise[split - 1]); });
+const band = fc.map((v, k) => 30 + 22 * k);
+let s = "";
+for (let v = 700; v <= 1600; v += 300) s += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="#1f2937"/><text x="${L - 6}" y="${y(v) + 3}" text-anchor="end">${v.toLocaleString("en")}</text>`;
+for (let i = 0; i < n; i += 4) s += `<text x="${x(i)}" y="${H - 5}" text-anchor="middle">W${20 + i}</text>`;
+const fx = (k) => x(split - 1 + k);
+s += `<rect x="${x(split - 1)}" y="${T}" width="${W - R - x(split - 1)}" height="${H - T - B}" fill="rgb(139 92 246 / .05)"/>`;
+s += `<path d="M${fc.map((v, k) => `${fx(k)},${y(v + band[k])}`).join("L")}L${fc.map((v, k) => `${fx(k)},${y(v - band[k])}`).reverse().join("L")}Z" fill="rgb(167 139 250 / .22)"/>`;
+s += `<line x1="${x(split - 1)}" x2="${x(split - 1)}" y1="${T}" y2="${H - B}" stroke="#475569" stroke-dasharray="3 3"/><text x="${x(split - 1) + 4}" y="${T + 9}" style="fill:#94a3b8;font-weight:600">Today</text>`;
+const last = actual[split - 1];
+s += `<path d="M${x(split - 1)},${y(last)}L${x(n - 1)},${y(last)}" stroke="#64748b" stroke-width="1.5" stroke-dasharray="1.5 3" fill="none"/>`;
+const area = `M${actual.map((v, i) => `${x(i)},${y(v)}`).join("L")}L${x(split - 1)},${H - B}L${x(0)},${H - B}Z`;
+s += `<defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2dd4bf" stop-opacity=".28"/><stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/></linearGradient></defs><path d="${area}" fill="url(#g)"/>`;
+s += `<path d="M${actual.map((v, i) => `${x(i)},${y(v)}`).join("L")}" stroke="#2dd4bf" stroke-width="2" fill="none" stroke-linejoin="round"/>`;
+s += `<path d="M${fc.map((v, k) => `${fx(k)},${y(v)}`).join("L")}" stroke="#a78bfa" stroke-width="2" stroke-dasharray="5 3" fill="none"/>`;
+s += `<circle cx="${x(split - 1)}" cy="${y(last)}" r="3.5" fill="#0b1120" stroke="#2dd4bf" stroke-width="2"/>`;
+svg.innerHTML = s;
+const r = (v) => Math.round(v / 10) * 10, f = (v) => v.toLocaleString("en");
+const dates = ["9 Nov", "16 Nov", "23 Nov", "30 Nov"];
+document.querySelector("table").insertAdjacentHTML("beforeend", dates.map((d, k) =>
+  `<tr><td>W${46 + k} · ${d}</td><td class="n">${f(r(fc[k + 1]))}</td><td class="r">${f(r(fc[k + 1] - band[k + 1]))}–${f(r(fc[k + 1] + band[k + 1]))}</td></tr>`).join(""));
+const next8 = fc.slice(1), total = next8.reduce((a, b) => a + r(b), 0), spread = next8.reduce((a, _, k) => a + band[k + 1], 0) * 0.55;
+document.getElementById("sum").textContent = f(total);
+document.getElementById("sumr").textContent = `range ${f(r(total - spread))} – ${f(r(total + spread))}`;
+document.getElementById("avg").textContent = f(r(actual.slice(-12).reduce((a, b) => a + b, 0) / 12));
+document.getElementById("sug").textContent = `${f(Math.round((fc.slice(1, 5).reduce((a, b) => a + r(b), 0) - 3950 + 600) / 100) * 100)} pcs`;
+</script>
+</body></html>

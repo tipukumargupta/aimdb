@@ -503,7 +503,8 @@ Each type shows its duration, its fee (if any), its format (online or in person)
 - **Case studies** (`/case-studies`, `/case-studies/[slug]`):
   - A category filter (component state) with an empty state.
   - Each page follows §10 in order: context and problem with objectives, scope and AIDMBD's role, solution and features, results and limitations, then **Discuss a Similar Project** (pre-selects the related service in `/book`).
-  - All five suggested demos are listed openly as **Demo Project · In development**. Pages show a screenshot placeholder and "measured results will be published once complete, never estimates". The briefs are drafts.
+  - All five suggested demos are listed openly as **Demo Project · In development**. Pages show "measured results will be published once complete, never estimates". The briefs are drafts.
+  - Until real screenshots exist, each demo shows a **concept preview** (`preview` in `content/caseStudies.ts`, images in `public/images/case-studies/*-preview.png`, HTML sources in `design/case-study-previews/` rendered at 800×500, 2× scale): a mock-up of the planned interface with sample data, labelled "Concept preview" on the card and captioned on the detail page. Previews never show results or accuracy figures. The first screenshot replaces the preview automatically.
   - When a demo is finished, add its `screenshots`, `demoUrl` and verified `results` and set `status: "complete"`. The forecasting demo must then state its data, test period, baseline and limitations.
 - **Blog** (`/blog`, `/blog/[slug]`):
   - Posts are MDX (`content/blog/<slug>.mdx`, imported by the route) with typed metadata in `content/posts.ts`. Reading time is counted at 220 words a minute.

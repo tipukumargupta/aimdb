@@ -198,6 +198,11 @@ export type CaseStudy = {
   results: string[];
   limitations?: string;
   screenshots?: Array<{ src: string; alt: string }>;
+  /**
+   * A concept image of the planned interface, with sample data. Shown labelled "Concept preview"
+   * only until real screenshots exist, and never presented as finished work.
+   */
+  preview?: { src: string; alt: string };
   demoUrl?: string;
   relatedService: Service["slug"];
   /** Shown in the homepage preview. */

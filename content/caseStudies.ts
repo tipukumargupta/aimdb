@@ -16,8 +16,9 @@ export const caseStudyStatus: Record<CaseStudyStatus, string> = {
 
 // The demo projects suggested in the plan (requirements §10), all still being built. Their pages
 // show the brief openly as "Demo Project · In development": the context, objectives, scope and
-// approach are drafts to confirm with the client. Add screenshots, a demo link and measured
-// results (with data, test period and baseline) when each one is complete, never before.
+// approach are drafts to confirm with the client. Until then each shows a labelled concept
+// preview of the planned interface. Add screenshots, a demo link and measured results (with
+// data, test period and baseline) when each one is complete, never before.
 export const caseStudies: CaseStudy[] = [
   {
     slug: "textile-production-planning-dashboard",
@@ -25,6 +26,10 @@ export const caseStudies: CaseStudy[] = [
     category: "data-ml",
     isDemo: true,
     status: "in-development",
+    preview: {
+      src: "/images/case-studies/textile-production-planning-dashboard-preview.png",
+      alt: "Concept preview of the planning dashboard: open orders, this week's line load by buyer, and orders at risk of missing their shipment date.",
+    },
     summary: "One view of orders, line capacity and deadlines for a textile production floor.",
     context:
       "Garment and textile factories plan production across many orders, lines and shipment dates. Planning often lives in spreadsheets that each team updates separately.",
@@ -58,6 +63,10 @@ export const caseStudies: CaseStudy[] = [
     category: "data-ml",
     isDemo: true,
     status: "in-development",
+    preview: {
+      src: "/images/case-studies/demand-forecasting-system-preview.png",
+      alt: "Concept preview of the forecasting dashboard: weekly sales with an eight-week forecast, its error range and a naive baseline, beside the weekly forecast table.",
+    },
     summary: "Sales forecasts that are checked against a simple baseline before anyone relies on them.",
     context:
       "Retailers and manufacturers decide how much to stock or produce weeks ahead. Many of those decisions are made from experience alone, without using the sales history they already have.",
@@ -92,6 +101,10 @@ export const caseStudies: CaseStudy[] = [
     category: "ai-automation",
     isDemo: true,
     status: "in-development",
+    preview: {
+      src: "/images/case-studies/bangla-english-faq-assistant-preview.png",
+      alt: "Concept preview of the assistant's review console: a website chat answered in Bangla and English with cited sources, then handed over to the support team.",
+    },
     summary: "A bilingual assistant that answers from approved content and knows when to hand over.",
     context:
       "Businesses in Bangladesh answer customers in both Bangla and English, across a website and messaging apps. The same questions arrive every day, and a small team answers each one by hand.",
@@ -125,6 +138,10 @@ export const caseStudies: CaseStudy[] = [
     category: "ai-automation",
     isDemo: true,
     status: "in-development",
+    preview: {
+      src: "/images/case-studies/lead-follow-up-workflow-preview.png",
+      alt: "Concept preview of the follow-up workflow: new lead, CRM sheet, drafted reply, approval, send, wait and follow-up steps, beside a list of recent leads.",
+    },
     summary: "Every lead captured, logged and followed up on time, with a person approving key messages.",
     context:
       "Small businesses collect leads from website forms, Facebook and WhatsApp. Without one place to track them, follow-ups depend on someone remembering.",
@@ -158,6 +175,10 @@ export const caseStudies: CaseStudy[] = [
     category: "web-development",
     isDemo: true,
     status: "in-development",
+    preview: {
+      src: "/images/case-studies/course-learning-portal-preview.png",
+      alt: "Concept preview of the student dashboard: a continue-lesson card, module progress, the next live class, an assignment due and course resources.",
+    },
     summary: "Lessons, recordings, resources and progress in one place for every student.",
     context:
       "Training providers often run courses through chat groups, shared drives and video links. Students lose track of material, and instructors can't see who is keeping up.",
@@ -228,6 +249,8 @@ export const caseStudyPage = {
   types: { demo: "Demo Project", client: "Client project" },
   media: {
     pending: "Screenshots and a live demo will be added when this demo is complete.",
+    preview: "Concept preview",
+    previewNote: "A concept preview of the planned interface, shown with sample data.",
     demo: "Open the live demo",
   },
   context: { eyebrow: "The challenge", title: "Context and problem." },

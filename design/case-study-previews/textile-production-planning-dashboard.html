@@ -1,0 +1,115 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+body { background: #f4f5f7; color: #111827; display: grid; grid-template-columns: 150px 1fr; }
+aside { background: #0f172a; color: #94a3b8; padding: 14px 10px; display: flex; flex-direction: column; }
+.brand { color: #fff; font-weight: 700; font-size: 11px; white-space: nowrap; display: flex; align-items: center; gap: 7px; padding: 0 6px 14px; }
+.logo { width: 22px; height: 22px; border-radius: 6px; background: linear-gradient(135deg,#6366f1,#22d3ee); display: grid; place-items: center; color: #fff; font-size: 11px; font-weight: 800; }
+nav a { display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 6px; font-size: 10.5px; font-weight: 500; }
+nav a.on { background: #1e293b; color: #fff; }
+nav .count { margin-left: auto; background: #334155; color: #e2e8f0; border-radius: 999px; padding: 0 6px; font-size: 9px; }
+.unit { margin-top: auto; border-top: 1px solid #1e293b; padding: 10px 6px 0; font-size: 9.5px; }
+.unit b { color: #e2e8f0; display: block; font-size: 10px; }
+main { padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+.sub { color: #6b7280; font-size: 10px; margin-top: 1px; }
+.btn { border: 1px solid #d1d5db; background: #fff; border-radius: 6px; padding: 5px 9px; font-size: 10px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; color: #374151; }
+.btn.primary { background: #4f46e5; border-color: #4f46e5; color: #fff; }
+.chip { border: 1px solid #e5e7eb; background: #fff; border-radius: 6px; padding: 4px 8px; font-size: 9.5px; color: #4b5563; display: inline-flex; gap: 4px; align-items: center; }
+.chip b { color: #111827; font-weight: 600; }
+.avatar { width: 24px; height: 24px; border-radius: 50%; background: #e0e7ff; color: #4338ca; font-weight: 700; font-size: 9.5px; display: grid; place-items: center; }
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.card { background: #fff; border: 1px solid #e5e7eb; border-radius: 9px; }
+.kpi { padding: 9px 11px; }
+.kpi .label { color: #6b7280; font-size: 9.5px; font-weight: 500; }
+.kpi .value { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; margin-top: 3px; }
+.kpi .delta { font-size: 9px; margin-top: 2px; color: #6b7280; }
+.up { color: #059669; } .warn { color: #dc2626; }
+.lower { display: grid; grid-template-columns: 1.55fr 1fr; gap: 8px; flex: 1; min-height: 0; }
+.panel { padding: 10px 12px; display: flex; flex-direction: column; min-height: 0; }
+.panel h2 { font-size: 11px; font-weight: 650; }
+.legend { display: flex; gap: 8px; white-space: nowrap; font-size: 9px; color: #6b7280; }
+.legend span { display: inline-flex; gap: 4px; align-items: center; }
+.sq { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
+.gantt { margin-top: 12px; display: grid; grid-template-columns: 44px 1fr 34px; row-gap: 11px; align-items: center; font-size: 9.5px; }
+.days { display: grid; grid-template-columns: repeat(6, 1fr); color: #9ca3af; font-size: 8.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.track { position: relative; height: 24px; background: repeating-linear-gradient(90deg, #f3f4f6 0, #f3f4f6 calc(100%/6 - 1px), #e5e7eb calc(100%/6 - 1px), #e5e7eb calc(100%/6)); border-radius: 4px; }
+.bar { position: absolute; top: 2px; bottom: 2px; border-radius: 4px; color: #fff; font-size: 8.5px; font-weight: 600; padding: 0 5px; display: flex; align-items: center; white-space: nowrap; overflow: hidden; }
+.b1 { background: #6366f1; } .b2 { background: #0d9488; } .b3 { background: #d97706; } .b4 { background: #0284c7; } .b5 { background: #db2777; }
+.over { background: repeating-linear-gradient(135deg, #dc2626 0 5px, #ef4444 5px 10px); }
+.load { text-align: right; font-weight: 600; color: #374151; }
+.line { color: #4b5563; font-weight: 600; }
+table { width: 100%; border-collapse: collapse; margin-top: 6px; }
+th { text-align: left; color: #9ca3af; font-size: 8.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; padding: 4px 0; border-bottom: 1px solid #f3f4f6; }
+td { padding: 6.5px 0; border-bottom: 1px solid #f3f4f6; font-size: 9.5px; vertical-align: middle; }
+td .o { font-weight: 600; } td .b { color: #6b7280; font-size: 9px; }
+.prog { width: 54px; height: 5px; background: #f3f4f6; border-radius: 9px; overflow: hidden; }
+.prog i { display: block; height: 100%; border-radius: 9px; }
+.red { background: #fee2e2; color: #b91c1c; } .amber { background: #fef3c7; color: #b45309; }
+</style></head>
+<body>
+<aside>
+  <div class="brand"><span class="logo">P</span>Production Planner</div>
+  <nav>
+    <a class="on"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Overview</a>
+    <a><svg class="i" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Orders<span class="count">42</span></a>
+    <a><svg class="i" viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Lines</a>
+    <a><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Schedule</a>
+    <a><svg class="i" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>Daily output</a>
+    <a><svg class="i" viewBox="0 0 24 24"><path d="M3 3v18h18M7 16v-5M12 16V8M17 16v-8"/></svg>Reports</a>
+    <a><svg class="i" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M8 17h8"/></svg>Import sheets</a>
+  </nav>
+  <div class="unit"><b>Unit 2 · Knit</b>6 lines · 2 shifts</div>
+</aside>
+<main>
+  <div class="row between">
+    <div><h1>Production overview</h1><div class="sub">Week 46 · Sat 8 – Thu 13 Nov · updated 10 minutes ago</div></div>
+    <div class="row gap6">
+      <span class="btn"><svg class="i" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Export</span>
+      <span class="btn primary"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New order</span>
+      <span class="avatar">RK</span>
+    </div>
+  </div>
+  <div class="row gap6">
+    <span class="chip">Buyer: <b>All buyers</b></span><span class="chip">Line: <b>All lines</b></span><span class="chip">Status: <b>In production</b></span>
+    <span class="chip" style="margin-left:auto">Week <b>46</b> ▾</span>
+  </div>
+  <div class="kpis">
+    <div class="card kpi"><div class="label">Open orders</div><div class="value">42</div><div class="delta"><span class="up">+3</span> since last week</div></div>
+    <div class="card kpi"><div class="label">Pieces in production</div><div class="value">186,400</div><div class="delta">across 6 lines</div></div>
+    <div class="card kpi"><div class="label">Line load this week</div><div class="value">91%</div><div class="delta">Line 4 over capacity</div></div>
+    <div class="card kpi"><div class="label">Orders at risk</div><div class="value warn">5</div><div class="delta">ship within 10 days</div></div>
+  </div>
+  <div class="lower">
+    <div class="card panel">
+      <div class="row between"><h2>Line load</h2>
+        <div class="legend"><span><i class="sq b1"></i>Halden</span><span><i class="sq b2"></i>Corvo</span><span><i class="sq b3"></i>Mirelle</span><span><i class="sq b4"></i>Tessaro</span><span><i class="sq over"></i>Over</span></div></div>
+      <div class="gantt">
+        <span></span><div class="days"><span>Sat</span><span>Sun</span><span style="color:#4f46e5">Mon ●</span><span>Tue</span><span>Wed</span><span>Thu</span></div><span class="load" style="color:#9ca3af;font-size:8.5px">LOAD</span>
+        <span class="line">Line 1</span><div class="track"><div class="bar b1" style="left:0;width:58%">HD-2417 Polo · 12k</div><div class="bar b3" style="left:59%;width:41%">MR-0931 Romper</div></div><span class="load">96%</span>
+        <span class="line">Line 2</span><div class="track"><div class="bar b2" style="left:0;width:100%">CB-118 Crew tee · 24k pcs</div></div><span class="load">100%</span>
+        <span class="line">Line 3</span><div class="track"><div class="bar b4" style="left:0;width:40%">TS-552 Jogger</div><div class="bar b1" style="left:41%;width:38%">HD-2420 Hoodie</div></div><span class="load" style="color:#059669">79%</span>
+        <span class="line">Line 4</span><div class="track"><div class="bar b3" style="left:0;width:62%">MR-0934 Sleepsuit</div><div class="bar over" style="left:63%;width:37%">+ CB-121 Tank</div></div><span class="load warn">118%</span>
+        <span class="line">Line 5</span><div class="track"><div class="bar b2" style="left:0;width:50%">CB-119 V-neck</div><div class="bar b4" style="left:51%;width:33%">TS-560 Short</div></div><span class="load">84%</span>
+        <span class="line">Line 6</span><div class="track"><div class="bar b1" style="left:0;width:72%">HD-2417 Polo · 9k</div></div><span class="load" style="color:#059669">72%</span>
+      </div>
+      <div class="row gap8" style="margin-top:auto;padding-top:10px;border-top:1px solid #f3f4f6;font-size:9.5px;color:#6b7280">
+        <span><b style="color:#111827">31,200</b> pcs output yesterday</span><span>·</span><span><b style="color:#111827">94%</b> of plan</span>
+        <span style="margin-left:auto;color:#4f46e5;font-weight:600">Open schedule →</span>
+      </div>
+    </div>
+    <div class="card panel">
+      <div class="row between"><h2>Orders at risk</h2><span class="pill red">5 orders</span></div>
+      <table>
+        <tr><th>Order</th><th>Ship</th><th>Progress</th><th style="text-align:right">Left</th></tr>
+        <tr><td><div class="o">MR-0934</div><div class="b">Mirelle Kids</div></td><td>14 Nov</td><td><div class="prog"><i style="width:48%;background:#dc2626"></i></div></td><td style="text-align:right"><span class="pill red">2 days</span></td></tr>
+        <tr><td><div class="o">CB-121</div><div class="b">Corvo Basics</div></td><td>16 Nov</td><td><div class="prog"><i style="width:31%;background:#dc2626"></i></div></td><td style="text-align:right"><span class="pill red">4 days</span></td></tr>
+        <tr><td><div class="o">HD-2417</div><div class="b">Halden Apparel</div></td><td>18 Nov</td><td><div class="prog"><i style="width:67%;background:#d97706"></i></div></td><td style="text-align:right"><span class="pill amber">6 days</span></td></tr>
+        <tr><td><div class="o">TS-552</div><div class="b">Tessaro Sport</div></td><td>20 Nov</td><td><div class="prog"><i style="width:58%;background:#d97706"></i></div></td><td style="text-align:right"><span class="pill amber">8 days</span></td></tr>
+        <tr><td><div class="o">CB-118</div><div class="b">Corvo Basics</div></td><td>22 Nov</td><td><div class="prog"><i style="width:72%;background:#d97706"></i></div></td><td style="text-align:right"><span class="pill amber">10 days</span></td></tr>
+      </table>
+      <div style="margin-top:auto;padding-top:8px;color:#4f46e5;font-weight:600;font-size:9.5px">View all 42 orders →</div>
+    </div>
+  </div>
+</main>
+</body></html>
